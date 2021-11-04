@@ -1,0 +1,10 @@
+
+
+.categoryWrapper {
+    font-family: 'Girassol', cursive;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: black;
+    color: white;
+  }

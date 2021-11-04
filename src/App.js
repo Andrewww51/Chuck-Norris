@@ -4,16 +4,14 @@ import {useState, useEffect } from 'react'
 import chuckPicture from './pictures/chuck-norris.jpg'
 import saloonPicture from './pictures/saloon.jpg'
 import logo from './pictures/logo.png'
+import Categories from './categories/Categories';
 
 function App() {
 
   const[category, setCategory] = useState([])
   const[randomJoke, setRandomJoke] = useState("")
 
-  function clicker(event) {
-    // console.log(event)
-    fetchRandomJoke();
-  }
+
 
   async function fetchCategory() {
     const categoryUrl = "https://api.chucknorris.io/jokes/categories";
@@ -24,14 +22,7 @@ function App() {
         await setCategory(responseJSON)
   }
 
-  async function fetchRandomJoke() {
-    const randomJokeUrl = `https://api.chucknorris.io/jokes/random?category=${category}`;
 
-    const responseJSON = await fetch(randomJokeUrl)
-        .then(response => response.json())
-
-        await setRandomJoke(responseJSON)
-  }
 
   useEffect(()=> {
     fetchCategory();
@@ -39,15 +30,10 @@ function App() {
 
   return (
     <div className="App">
-      <div className="categoryWrapper">
-        {category.map((cat,i)=> (
-                      <div key={i} className="buttons" onClick={(e)=> clicker(e.target.textContent)}>{cat}</div>
-                  ))}  
-      </div>
+      <Categories category={category} setJoke={setRandomJoke}/>
 
       <div className="mainWrapper">
         <div id="left-picture">
-          {/* <img className="pictures" src={chuckPicture} alt="chucknorris"/> */}
           </div>
 
         <div className="jokeWrapper">
@@ -58,7 +44,6 @@ function App() {
         </div>
 
         <div id="right-picture">
-          {/* <img className="pictures" src={saloonPicture} alt="saloon"/> */}
           </div>
       </div>
     </div>
